@@ -27,7 +27,6 @@
         "lhs": "${hostSystemName}",
         "rhs": "Windows"
       },
-      "generator": "Visual Studio 17 2022",
       "$comment": "Output dir set to prevent MSVC from adding Debug/Release subdirectories",
       "cacheVariables": {
         "CMAKE_LIBRARY_OUTPUT_DIRECTORY": "${sourceDir}/build/bin",
