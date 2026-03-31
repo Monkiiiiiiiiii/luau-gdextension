@@ -1,5 +1,5 @@
 {
     "luau-lsp.types.definitionFiles": {
-        "godot": "dist/addons/luau_gdextension/godot.d.luau"
+        "godot": "addons/luau_gdextension/godot.d.luau"
     }
 }

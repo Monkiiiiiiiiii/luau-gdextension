@@ -99,7 +99,7 @@ jobs:
         run: cmake --preset ${{ matrix.preset }}
 
       - name: Build
-        run: cmake --build --preset ${{ matrix.preset }} -j
+        run: cmake --build --preset ${{ matrix.preset }} -j 2
 
       - name: Checking libraries were copied
         run: ls -la */addons/*/bin/
@@ -110,7 +110,7 @@ jobs:
       - name: Copy documentation
         if: github.event_name != 'pull_request'
         run: |
-          cp LICENSE README.md dist/addons/luau_gdextension/
+          cp LICENSE README.md addons/luau_gdextension/
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -118,7 +118,7 @@ jobs:
         with:
           name: luau-gdextension-${{ matrix.preset }}
           path: |
-            dist/addons/luau_gdextension/**
+            addons/luau_gdextension/**
 
   merge-build-artifacts:
     runs-on: ubuntu-slim
