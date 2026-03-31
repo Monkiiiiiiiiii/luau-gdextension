@@ -99,7 +99,7 @@ jobs:
         run: cmake --preset ${{ matrix.preset }}
 
       - name: Build
-        run: cmake --build --preset ${{ matrix.preset }} -j
+        run: cmake --build --preset ${{ matrix.preset }} -j 2
 
       - name: Checking libraries were copied
         run: ls -la */addons/*/bin/
