@@ -96,14 +96,14 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
     SUFFIX ".${LIBRARY_SUFFIX}"
 )
 
-# Copy the library to dist/
+# Copy the library to addons/ in the root
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E make_directory
-        "${CMAKE_CURRENT_SOURCE_DIR}/dist/addons/luau_gdextension/bin"
+        "${CMAKE_CURRENT_SOURCE_DIR}/addons/luau_gdextension/bin"
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
         $<TARGET_FILE:${PROJECT_NAME}>
-        "${CMAKE_CURRENT_SOURCE_DIR}/dist/addons/luau_gdextension/bin/$<TARGET_FILE_NAME:${PROJECT_NAME}>"
-    COMMENT "Copying extension library to dist/addons/"
+        "${CMAKE_CURRENT_SOURCE_DIR}/addons/luau_gdextension/bin/$<TARGET_FILE_NAME:${PROJECT_NAME}>"
+    COMMENT "Copying extension library to addons/"
 )
 
 # Copy PDB files if COPY_PDB_FILE is enabled (Windows debug builds)
@@ -111,8 +111,8 @@ if(COPY_PDB_FILE)
     add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
             $<TARGET_PDB_FILE:${PROJECT_NAME}>
-            "${CMAKE_CURRENT_SOURCE_DIR}/dist/addons/luau_gdextension/bin/$<TARGET_PDB_FILE_NAME:${PROJECT_NAME}>"
-        COMMENT "Copying PDB file to dist/addons/"
+            "${CMAKE_CURRENT_SOURCE_DIR}/addons/luau_gdextension/bin/$<TARGET_PDB_FILE_NAME:${PROJECT_NAME}>"
+        COMMENT "Copying PDB file to addons/"
     )
 endif()
 
