@@ -1551,6 +1551,27 @@
 				[/codeblock]
 			</description>
 		</method>
+		<method name="set_interrupt_enabled">
+			<return type="void" />
+			<param index="0" name="enabled" type="bool" />
+			<description>
+				Enables or disables the [signal interrupt] callback. When disabled, the Luau VM will not invoke the interrupt hook at all, which can significantly improve performance for scripts that don't need it.
+				By default the interrupt hook is enabled. Disable it when you don't need to handle the [signal interrupt] signal and want maximum performance.
+				[b]Note:[/b] This setting is VM-wide and affects all threads within the same Lua VM.
+				[codeblock]
+				var state := LuaState.new()
+				state.set_interrupt_enabled(false)  # Disable for maximum performance
+				state.open_libs()
+				state.do_string("for i = 1, 1000000 do end", "bench")
+				[/codeblock]
+			</description>
+		</method>
+		<method name="get_interrupt_enabled">
+			<return type="bool" />
+			<description>
+				Returns [code]true[/code] if the [signal interrupt] callback is enabled, [code]false[/code] if it is disabled. See [method set_interrupt_enabled].
+			</description>
+		</method>
 		<method name="set_single_step">
 			<return type="void" />
 			<param index="0" name="enabled" type="bool" />
@@ -2253,6 +2274,7 @@
 			<description>
 				Emitted when the Lua VM has reached a "safepoint," like the end of a loop iteration, function call or return, or garbage collection step. [param gc_state], if non-negative, indicates Luau's internal garbage collection state.
 				This can be used as a hook to safely interrupt long-running scripts.
+				[b]Performance note:[/b] The interrupt hook runs frequently during script execution. If you don't need this signal, call [method set_interrupt_enabled] with [code]false[/code] to disable it and improve performance.
 			</description>
 		</signal>
 	</signals>

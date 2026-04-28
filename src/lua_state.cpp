@@ -299,6 +299,8 @@ void LuaState::_bind_methods()
     ClassDB::bind_method(D_METHOD("set_local", "level", "nlocal"), &LuaState::set_local);
     ClassDB::bind_method(D_METHOD("get_upvalue", "funcindex", "nupvalue"), &LuaState::get_upvalue);
     ClassDB::bind_method(D_METHOD("set_upvalue", "funcindex", "nupvalue"), &LuaState::set_upvalue);
+    ClassDB::bind_method(D_METHOD("set_interrupt_enabled", "enabled"), &LuaState::set_interrupt_enabled);
+    ClassDB::bind_method(D_METHOD("get_interrupt_enabled"), &LuaState::get_interrupt_enabled);
     ClassDB::bind_method(D_METHOD("set_single_step", "enabled"), &LuaState::set_single_step);
     ClassDB::bind_method(D_METHOD("set_breakpoint", "funcindex", "nline", "enabled"), &LuaState::set_breakpoint);
     ClassDB::bind_method(D_METHOD("get_coverage", "funcindex", "callback"), &LuaState::get_coverage);
@@ -1559,6 +1561,18 @@ StringName LuaState::set_upvalue(int p_funcindex, int p_nupvalue)
     {
         return StringName();
     }
+}
+
+void LuaState::set_interrupt_enabled(bool p_enabled)
+{
+    ERR_FAIL_COND_MSG(!is_valid(), "Lua state is invalid. Cannot set interrupt enabled.");
+    lua_callbacks(L)->interrupt = p_enabled ? callback_interrupt : nullptr;
+}
+
+bool LuaState::get_interrupt_enabled()
+{
+    ERR_FAIL_COND_V_MSG(!is_valid(), false, "Lua state is invalid. Cannot get interrupt enabled.");
+    return lua_callbacks(L)->interrupt != nullptr;
 }
 
 void LuaState::set_single_step(bool p_enabled)
