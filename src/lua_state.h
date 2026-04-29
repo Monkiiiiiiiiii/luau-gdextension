@@ -17,6 +17,9 @@ namespace gdluau
         GDCLASS(LuaState, RefCounted)
 
     private:
+
+          
+
         lua_State *L;
         Ref<LuaState> main_thread; // only set for non-main threads
 
@@ -35,6 +38,10 @@ namespace gdluau
         static void _bind_methods();
 
     public:
+        
+
+
+
         // Library selection flags for open_libs()
         enum LibraryFlags
         {

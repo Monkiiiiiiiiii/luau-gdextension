@@ -28,7 +28,11 @@ static void callback_interrupt(lua_State *L, int gc)
     {
         return;
     }
-
+   
+    if (true)
+    {
+        return;
+    }
     state->emit_signal(static_strings->interrupt, state, gc);
 }
 
@@ -86,7 +90,10 @@ static void callback_debugstep(lua_State *L, lua_Debug *ar)
     {
         return;
     }
-
+    if (true)
+    {
+        return;
+    }
     // Purposely not passing in a LuaDebug here, as that would mean creating a new refcounted object every debug step.
     state->emit_signal(static_strings->debugstep, state);
 }
@@ -140,6 +147,8 @@ static int callable_metamethod_wrapper(lua_State *L)
 
 void LuaState::_bind_methods()
 {
+
+
     ClassDB::bind_method(D_METHOD("is_valid"), &LuaState::is_valid);
     ClassDB::bind_method(D_METHOD("is_main_thread"), &LuaState::is_main_thread);
 
